@@ -2,64 +2,43 @@ package it.polito.tdp.Emergency.model;
 
 import java.time.LocalTime;
 
-/**
- * Rappresenta le informazioni su ciascun paziente nel sistema
- * @author Fulvio
- *
- */
-public class Paziente implements Comparable<Paziente>{
-	
+public class Paziente implements Comparable<Paziente> {
+
 	public enum CodiceColore {
-		UNKNOWN, // non lo so ancora perché il paziente non ancora finito il triage
-		WHITE,
-		YELLOW,
-		RED,
-		BLACK,
-		OUT,
+		WHITE, YELLOW, RED, BLACK, UNKNOWN, OUT
 	}
-	
-	private LocalTime oraArrivo ;
-	private CodiceColore colore ;
-	/**
-	 * @param oraArrivo
-	 * @param colore
-	 */
-	public Paziente(LocalTime oraArrivo, CodiceColore colore) {
-		super();
+
+	private LocalTime oraArrivo;
+	private CodiceColore codiceColore;
+
+	public Paziente(LocalTime oraArrivo, CodiceColore codiceColore) {
 		this.oraArrivo = oraArrivo;
-		this.colore = colore;
+		this.codiceColore = codiceColore;
 	}
+
 	public LocalTime getOraArrivo() {
 		return oraArrivo;
 	}
 
 	public CodiceColore getColore() {
-		return colore;
+		return codiceColore;
 	}
-	public void setColore(CodiceColore colore) {
-		this.colore = colore;
+
+	public void setColore(CodiceColore codiceColore) {
+		this.codiceColore = codiceColore;
 	}
-	@Override
-	public int compareTo(Paziente other) {
-		if(this.colore==other.colore) {
-			return this.oraArrivo.compareTo(other.oraArrivo);
-		} else if(this.colore==CodiceColore.RED) {
-			return -1 ;
-		} else if(other.colore==CodiceColore.RED) {
-			return +1 ;
-		} else if(this.colore==CodiceColore.YELLOW) {
-			return -1 ;
-		} else if(other.colore==CodiceColore.YELLOW) {
-			return +1 ;
-		}
-		
-		throw new RuntimeException("Comparator<Persona> failed") ;
-	}
+
 	@Override
 	public String toString() {
-		return "Paziente [" + oraArrivo + ", " + colore + "]";
+		return "Paziente [oraArrivo=" + oraArrivo + ", codiceColore=" + codiceColore + "]";
 	}
-	
-	
-	
+
+	@Override
+	public int compareTo(Paziente o) {
+		if (codiceColore == o.codiceColore) {
+			return oraArrivo.compareTo(o.oraArrivo);
+		} else {
+			return o.codiceColore.compareTo(codiceColore);
+		}
+	}
 }

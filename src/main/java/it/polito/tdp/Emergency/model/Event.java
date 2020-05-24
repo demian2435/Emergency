@@ -2,33 +2,31 @@ package it.polito.tdp.Emergency.model;
 
 import java.time.LocalTime;
 
-public class Event implements Comparable<Event>{
-	
-	public enum EventType {
-		ARRIVAL,  // arriva un nuovo paziente
-		TRIAGE,  // è stato assegnato codice colore e vado in sala d'attesa
-		FREE_STUDIO, // si libera uno studio e chiamo un paziente
-		TREATED, // paziente trattato e dimesso
-		TIMEOUT, // attesa eccessiva in sala d'aspetto
-		TICK, // evento periodico per verificare se ci sono studi vuoti
-	}
-	
-	private LocalTime time ;
-	private EventType type ;
-	private Paziente paziente ;
-	
+public class Event implements Comparable<Event> {
 
-	/**
-	 * @param time
-	 * @param type
-	 */
+	public enum EventType {
+		ARRIVAL, // arrivo paziente
+		TRIAGE, // assegno codice triage
+		FREE_STUDIO, // si libera uno studio
+		TREATED, // paziente curato
+		TIMEOUT, // in caso superata attesa
+		TICK // Controllo studi vuoti
+	}
+
+	private LocalTime time;
+	private EventType type;
+	private Paziente paziente;
+
 	public Event(LocalTime time, EventType type, Paziente paziente) {
-		super();
 		this.time = time;
 		this.type = type;
 		this.paziente = paziente;
 	}
 	
+	public Paziente getPaziente() {
+		return paziente;
+	}
+
 	public LocalTime getTime() {
 		return time;
 	}
@@ -36,20 +34,16 @@ public class Event implements Comparable<Event>{
 	public EventType getType() {
 		return type;
 	}
-
-	@Override
-	public int compareTo(Event other) {
-		return this.time.compareTo(other.time);
-	}
-
-	public Paziente getPaziente() {
-		return paziente;
-	}
-
 	
+	
+
 	@Override
 	public String toString() {
-		return "Event ["+time + ", " + type + ", " + paziente + "]";
+		return "Event [time=" + time + ", type=" + type + ", paziente=" + paziente + "]";
 	}
 
+	@Override
+	public int compareTo(Event o) {
+		return this.time.compareTo(o.time);
+	}
 }

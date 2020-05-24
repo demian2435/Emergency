@@ -102,7 +102,7 @@ public class Simulator {
 	public void run() {
 		while (!this.queue.isEmpty()) {
 			Event e = this.queue.poll();
-			System.out.println(e + " Free studios "+this.studiLiberi);
+			System.out.println(e);
 			processEvent(e);
 		}
 	}
@@ -122,6 +122,7 @@ public class Simulator {
 		case TRIAGE:
 			// assegna codice colore
 			paz.setColore(nuovoCodiceColore());
+			System.out.println(paz.getColore());
 			
 			// mette in lista d'attesa
 			attesa.add(paz) ;
